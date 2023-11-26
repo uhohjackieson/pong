@@ -1,18 +1,8 @@
-#need a class for scoreboard, paddles, ball
-
-# create the screen
-# create and move a paddle
-# create another paddle
-# create the ball and make it move
-# detect collision with ball and bounce
-# detect collision with paddle
-# detect when paddle misses
-# keep score
-
 from turtle import Turtle, Screen
 from paddle import Paddle
 from ball import Ball
 import time
+from scoreboard import Scoreboard
 
 screen = Screen()
 screen.title("PONG")
@@ -36,6 +26,7 @@ screen.onkey(left_paddle.go_up, "w")
 screen.onkey(left_paddle.go_down, "s")
 
 ball = Ball()
+scoreboard = Scoreboard()
 
 game_is_on = True
 while game_is_on:
@@ -56,13 +47,16 @@ while game_is_on:
         ball.bounce_x()
 
     # detect when paddle misses
+    # right paddle misses
     if ball.xcor() > 380:
-        print("paddle misses")
+        # print("paddle misses")
         ball.reset_ball()
+        scoreboard.left_scores()
 
+    # left paddle misses
     if ball.xcor() < -380:
+        ball.reset_ball()
+        scoreboard.right_scores()
 
-
-    # keep score
 
 screen.exitonclick()
